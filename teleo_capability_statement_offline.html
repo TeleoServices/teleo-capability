@@ -459,11 +459,31 @@
 
         // PDF download function
         function downloadPDF() {
+            // Store the currently active tab
+            const activeTab = document.querySelector('.tab-content.active');
+
+            // Show all tabs for printing
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('active');
+            });
+
+            // Change document title for PDF filename
             const originalTitle = document.title;
             document.title = 'TELEO_Capability_Statement';
+
+            // Print
             window.print();
+
+            // Restore original state after print dialog closes
             setTimeout(() => {
                 document.title = originalTitle;
+
+                // Hide all tabs except the originally active one
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    if (tab !== activeTab) {
+                        tab.classList.remove('active');
+                    }
+                });
             }, 100);
         }
     </script>
