@@ -124,8 +124,15 @@
                     @media print {
                         @page { margin: 0; size: letter; }
                         body { margin: 0; padding: 0; }
-                        body > *:not(#pdf-condensed) { display: none !important; }
+
+                        /* Hide all website content */
+                        header, nav, main, footer { display: none !important; }
+                        .tab-content, .card, .container { display: none !important; }
+
+                        /* Show only the condensed PDF */
                         #pdf-condensed { display: block !important; }
+
+                        /* Preserve colors */
                         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
                     }
                 </style>
