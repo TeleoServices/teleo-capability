@@ -89,91 +89,44 @@
                         .header-content { flex-direction: column; }
                         .business-right { border: none; padding-left: 0; }
                     }
+                    /* Condensed PDF Styles */
+                    #pdf-condensed { display: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+                    .pdf-page { width: 8.5in; min-height: 11in; padding: 0.4in 0.5in; background: white; page-break-after: always; }
+                    .pdf-page:last-child { page-break-after: avoid; }
+                    .pdf-header { background: linear-gradient(90deg, #1e3a8a, #1e40af); color: white; padding: 0.5in 0.4in; margin: -0.4in -0.5in 0.2in -0.5in; }
+                    .pdf-h1 { font-size: 22pt; font-weight: 700; margin: 0 0 0.08in 0; color: white; }
+                    .pdf-tagline { font-size: 12pt; color: #fbbf24; font-weight: 600; margin-bottom: 0.1in; }
+                    .pdf-badges { display: flex; gap: 0.15in; font-size: 9pt; flex-wrap: wrap; }
+                    .pdf-section { margin-bottom: 0.2in; }
+                    .pdf-h2 { font-size: 13pt; font-weight: 700; color: #1e3a8a; margin-bottom: 0.08in; border-bottom: 2px solid #2563eb; padding-bottom: 0.04in; }
+                    .pdf-h3 { font-size: 10pt; font-weight: 700; color: #1e3a8a; margin: 0.12in 0 0.06in 0; }
+                    .pdf-text { font-size: 9pt; line-height: 1.35; color: #374151; margin-bottom: 0.08in; }
+                    .pdf-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.12in; }
+                    .pdf-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.1in; }
+                    .pdf-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.1in; }
+                    .pdf-stat { background: #eff6ff; border-left: 3px solid #2563eb; padding: 0.1in; text-align: center; }
+                    .pdf-stat-num { font-size: 16pt; font-weight: 700; color: #1e3a8a; margin-bottom: 0.03in; }
+                    .pdf-stat-label { font-size: 7pt; color: #4b5563; }
+                    .pdf-cert { display: flex; align-items: center; gap: 0.06in; background: #f0fdf4; border: 1px solid #d1fae5; padding: 0.06in; font-size: 7.5pt; border-radius: 0.04in; }
+                    .pdf-bullet { font-size: 8.5pt; color: #374151; margin-bottom: 0.04in; line-height: 1.3; }
+                    .pdf-diff-card { background: linear-gradient(135deg, white, #eff6ff); border: 1px solid #e5e7eb; padding: 0.1in; border-radius: 0.04in; }
+                    .pdf-diff-title { font-size: 9.5pt; font-weight: 700; color: #1e3a8a; margin-bottom: 0.04in; }
+                    .pdf-diff-text { font-size: 8pt; color: #4b5563; line-height: 1.25; }
+                    .pdf-perf-card { border: 1px solid #e5e7eb; padding: 0.1in; margin-bottom: 0.08in; background: linear-gradient(90deg, white, #f9fafb); border-radius: 0.04in; }
+                    .pdf-client-name { font-size: 10pt; font-weight: 700; color: #1e3a8a; margin-bottom: 0.03in; }
+                    .pdf-client-type { background: #dbeafe; color: #1e40af; padding: 0.02in 0.06in; border-radius: 0.08in; font-size: 7pt; font-weight: 600; display: inline-block; }
+                    .pdf-services { font-size: 8pt; color: #4b5563; margin-top: 0.06in; }
+                    .pdf-contact-box { background: #eff6ff; border-left: 3px solid #2563eb; padding: 0.1in; }
+                    .pdf-contact-title { font-size: 9pt; font-weight: 700; color: #1e3a8a; margin-bottom: 0.04in; }
+                    .pdf-contact-info { font-size: 8pt; color: #374151; line-height: 1.4; }
+                    .pdf-footer { background: linear-gradient(90deg, #1e3a8a, #1e40af); color: white; padding: 0.12in 0.4in; margin: 0.2in -0.5in -0.4in -0.5in; text-align: center; font-size: 8pt; }
+
                     @media print {
-                        /* Hide unnecessary elements */
-                        nav, .cta-button, .tagline, .header-badges, footer,
-                        .footer-content, .footer-bottom { display: none !important; }
-
-                        /* Page setup */
-                        @page { margin: 0.4in 0.5in; size: letter; }
-                        body { background: white; font-size: 9pt; line-height: 1.3; }
+                        @page { margin: 0; size: letter; }
+                        body { margin: 0; padding: 0; }
+                        body > *:not(#pdf-condensed) { display: none !important; }
+                        #pdf-condensed { display: block !important; }
                         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
-                        /* Header styling */
-                        header { margin: -0.4in -0.5in 0.25in -0.5in; padding: 0.5in 0.5in; }
-                        h1 { font-size: 20pt !important; margin-bottom: 0.05in; }
-
-                        /* Show all tabs */
-                        .tab-content { display: block !important; }
-
-                        /* Page 1: Overview + Credentials - No page break after */
-                        #overview { page-break-after: avoid; }
-                        #overview .card { margin-bottom: 0.15in; padding: 0.12in; }
-                        #overview h2 { font-size: 12pt; margin-bottom: 0.08in; border-bottom: 2px solid #2563eb; padding-bottom: 0.03in; }
-                        #overview h3 { font-size: 10pt; margin: 0.1in 0 0.06in 0; }
-                        #overview h4 { font-size: 9pt; margin-bottom: 0.05in; }
-                        #overview p { font-size: 8pt; margin-bottom: 0.06in; line-height: 1.25; }
-                        #overview .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 0.08in; margin: 0.1in 0; }
-                        #overview .stat-card { padding: 0.08in; }
-                        #overview .stat-number { font-size: 14pt; }
-                        #overview .stat-label { font-size: 6pt; }
-                        #overview .cert-grid { grid-template-columns: repeat(3, 1fr); gap: 0.06in; margin-top: 0.08in; }
-                        #overview .cert-item { padding: 0.06in; }
-                        #overview .cert-name { font-size: 6.5pt; }
-                        #overview .cert-status { font-size: 6pt; }
-                        #overview .tags { gap: 0.04in; margin-top: 0.06in; }
-                        #overview .tag { padding: 0.02in 0.06in; font-size: 5.5pt; }
-
-                        /* Page 2: Capabilities, NAICS, Differentiators */
-                        #capabilities, #naics, #differentiators { page-break-after: avoid; page-break-before: avoid; }
-                        #capabilities { page-break-before: always; }
-                        #capabilities .card, #naics .card, #differentiators .card {
-                            margin-bottom: 0.12in; padding: 0.1in;
-                        }
-                        #capabilities h2, #naics h2, #differentiators h2 {
-                            font-size: 12pt; margin-bottom: 0.08in;
-                            border-bottom: 2px solid #2563eb; padding-bottom: 0.03in;
-                        }
-                        #capabilities h3 { font-size: 9pt; margin: 0.08in 0 0.04in 0; }
-                        #capabilities p, #naics p, #differentiators p {
-                            font-size: 7.5pt; margin-bottom: 0.04in; line-height: 1.2;
-                        }
-                        #differentiators .diff-grid { grid-template-columns: repeat(2, 1fr); gap: 0.08in; }
-                        #differentiators .diff-card { padding: 0.08in; }
-                        #differentiators .diff-title { font-size: 8.5pt; margin-bottom: 0.03in; }
-
-                        /* Page 3: Performance + Contact */
-                        #performance { page-break-before: always; }
-                        #performance .card, #contact .card { margin-bottom: 0.12in; padding: 0.1in; }
-                        #performance h2, #contact h2 {
-                            font-size: 12pt; margin-bottom: 0.08in;
-                            border-bottom: 2px solid #2563eb; padding-bottom: 0.03in;
-                        }
-                        #performance p { font-size: 7.5pt; margin-bottom: 0.08in; line-height: 1.2; }
-                        #performance .performance-card {
-                            padding: 0.08in; margin-bottom: 0.06in;
-                            page-break-inside: avoid;
-                        }
-                        #performance .client-name { font-size: 9pt; }
-                        #performance .client-type { font-size: 6pt; padding: 0.02in 0.06in; }
-                        #performance .outcomes-grid {
-                            grid-template-columns: repeat(3, 1fr); gap: 0.04in; margin-top: 0.05in;
-                        }
-                        #performance .outcome-item { padding: 0.04in; font-size: 6pt; }
-
-                        #contact { page-break-after: avoid; }
-                        #contact .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 0.1in; }
-                        #contact .contact-box { padding: 0.08in; height: auto; }
-                        #contact .contact-title { font-size: 8pt; margin-bottom: 0.04in; }
-                        #contact .contact-info { font-size: 7pt; }
-                        #contact .contact-note { font-size: 6pt; }
-                        #contact .business-section { padding: 0.1in; margin-top: 0.1in; }
-                        #contact .business-grid { grid-template-columns: 1fr 1fr; gap: 0.1in; }
-                        #contact h3 { font-size: 9pt; margin-bottom: 0.06in; }
-
-                        /* General tweaks */
-                        .card { page-break-inside: avoid; }
-                        h2, h3, h4 { page-break-after: avoid; }
                     }
                 </style>
 
@@ -510,6 +463,194 @@
                         </div>
                     </div>
                 </footer>
+
+                <!-- Condensed 3-Page PDF Layout (Hidden) -->
+                <div id="pdf-condensed">
+                    <!-- PAGE 1: Company Overview & Credentials -->
+                    <div class="pdf-page">
+                        <div class="pdf-header">
+                            <div class="pdf-h1">TELEO SERVICES, LLC</div>
+                            <div class="pdf-tagline">Federal Medical Equipment Maintenance Excellence</div>
+                            <div class="pdf-badges">
+                                <span>Primary NAICS: 811210</span>
+                                <span style="background: #10b981; padding: 0.02in 0.08in; border-radius: 0.08in; font-weight: 600;">✓ SAM.gov Active</span>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Company Overview</div>
+                            <p class="pdf-text"><strong>TELEO Services, LLC</strong> is a dynamic small business delivering high-reliability maintenance, repair, and lifecycle support for critical medical, dental, and veterinary equipment across federal and state healthcare facilities. Led by Six Sigma Black Belt and MBA Jason Bass, our team includes OEM-certified biomedical technicians who combine continuous improvement methodologies with deep technical expertise to maximize equipment uptime, ensure regulatory compliance, and reduce total cost of ownership.</p>
+                            <p class="pdf-text">Our commitment to operational excellence and Lean Six Sigma principles is enhanced by AI-powered workflows that identify and eliminate waste, optimize service delivery, and drive measurable cost savings for government agencies. By leveraging artificial intelligence throughout our business processes—from predictive maintenance scheduling to parts inventory optimization—we deliver precision equipment maintenance solutions that meet the highest standards of quality, safety, and efficiency while keeping federal costs low.</p>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-grid-4">
+                                <div class="pdf-stat"><div class="pdf-stat-num">4</div><div class="pdf-stat-label">Active Federal Contracts</div></div>
+                                <div class="pdf-stat"><div class="pdf-stat-num">99%+</div><div class="pdf-stat-label">Equipment Uptime</div></div>
+                                <div class="pdf-stat"><div class="pdf-stat-num">24/7</div><div class="pdf-stat-label">Emergency Support</div></div>
+                                <div class="pdf-stat"><div class="pdf-stat-num">40%</div><div class="pdf-stat-label">Avg Cost Savings</div></div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Leadership & Credentials</div>
+                            <p class="pdf-text"><strong>Jason Bass - Founder & CEO:</strong> MBA and Six Sigma Black Belt with extensive healthcare operations experience from Amazon, Cardinal Health, and Providence Health. Proven expertise in program management, process improvement, and operational excellence. At Amazon, delivered $274M+ in cost savings as Senior Program Manager for Global Security Operations. Brings deep knowledge of healthcare supply chain optimization and quality management systems to federal healthcare equipment maintenance.</p>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Certifications & Registrations</div>
+                            <div class="pdf-grid-3">
+                                <div class="pdf-cert">✓ SAM.gov Registered (Active)</div>
+                                <div class="pdf-cert">✓ Small Business Certified</div>
+                                <div class="pdf-cert">✓ MBE Certified #M3M0029034</div>
+                                <div class="pdf-cert">✓ General Contractor #TELEO*76OPQ</div>
+                                <div class="pdf-cert">✓ MBA & Six Sigma Black Belt</div>
+                                <div class="pdf-cert">✓ OEM Certified Technicians</div>
+                                <div class="pdf-cert">✓ ISO 9001 Standards Compliant</div>
+                                <div class="pdf-cert">✓ CLIA Compliant Services</div>
+                                <div class="pdf-cert">✓ FDA Regulatory Knowledge</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAGE 2: Capabilities & Value -->
+                    <div class="pdf-page">
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Core Capabilities</div>
+                            <div class="pdf-grid-2">
+                                <div>
+                                    <div class="pdf-h3">Medical Equipment Services</div>
+                                    <div class="pdf-bullet">• Therapeutic & Surgical Lasers (Ophthalmic, Dermatology, Surgical)</div>
+                                    <div class="pdf-bullet">• Diagnostic Imaging Systems (X-Ray, Ultrasound, Fluoroscopy, MRI/CT)</div>
+                                    <div class="pdf-bullet">• Patient Monitoring & Telemetry</div>
+                                    <div class="pdf-bullet">• Anesthesia Equipment & Gas Delivery</div>
+                                    <div class="pdf-bullet">• Turn-Key Biomedical Engineering Programs</div>
+
+                                    <div class="pdf-h3">Laboratory Equipment Services</div>
+                                    <div class="pdf-bullet">• Clinical Laboratory Analyzers (Chemistry, Hematology, Immunoassay)</div>
+                                    <div class="pdf-bullet">• Laboratory Support Equipment (Centrifuges, Incubators, Sterilizers)</div>
+                                    <div class="pdf-bullet">• CLIA-Compliant Calibration & Validation</div>
+                                </div>
+                                <div>
+                                    <div class="pdf-h3">Electronic & Precision Equipment</div>
+                                    <div class="pdf-bullet">• Preventive Maintenance (PM) Programs</div>
+                                    <div class="pdf-bullet">• Corrective Maintenance (CM) & Emergency Repair</div>
+                                    <div class="pdf-bullet">• NIST-Traceable Equipment Calibration</div>
+                                    <div class="pdf-bullet">• Asset Lifecycle Management & Performance Tracking</div>
+                                    <div class="pdf-bullet">• Cost-Effective Alternatives to OEM Contracts</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-h2">NAICS Codes</div>
+                            <p class="pdf-text"><strong style="font-size: 10pt;">811210 - Electronic and Precision Equipment Repair & Maintenance</strong> <span style="background: #fbbf24; color: #1e3a8a; padding: 0.02in 0.06in; border-radius: 0.06in; font-size: 7pt; font-weight: 700;">PRIMARY</span><br>Primary expertise in repair and maintenance of electronic and precision equipment including medical devices, laboratory equipment, and diagnostic systems for federal healthcare facilities.</p>
+                            <p class="pdf-text" style="margin-bottom: 0;"><strong>Additional NAICS:</strong> 811219, 541611, 561210, 561621, 238210, 541380, 541350, 561790</p>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Why Choose TELEO Services</div>
+                            <div class="pdf-grid-2">
+                                <div class="pdf-diff-card">
+                                    <div class="pdf-diff-title">🏆 Lean Six Sigma Excellence</div>
+                                    <div class="pdf-diff-text">Six Sigma Black Belt leadership driving data-driven process optimization and measurable cost reductions. 40% downtime reduction, 30% cost savings, 99%+ equipment uptime.</div>
+                                </div>
+                                <div class="pdf-diff-card">
+                                    <div class="pdf-diff-title">⚡ AI-Powered Efficiency</div>
+                                    <div class="pdf-diff-text">Artificial intelligence workflows for predictive maintenance, inventory optimization, and waste elimination to keep federal costs low.</div>
+                                </div>
+                                <div class="pdf-diff-card">
+                                    <div class="pdf-diff-title">🛡️ Federal Healthcare Expertise</div>
+                                    <div class="pdf-diff-text">Proven experience supporting VA facilities and DoD healthcare operations with mission-critical equipment maintenance. 2 DHA & 2 VA active contracts.</div>
+                                </div>
+                                <div class="pdf-diff-card">
+                                    <div class="pdf-diff-title">✓ OEM-Certified Technical Team</div>
+                                    <div class="pdf-diff-text">Factory-trained biomedical technicians delivering manufacturer-grade service quality and reliability.</div>
+                                </div>
+                                <div class="pdf-diff-card">
+                                    <div class="pdf-diff-title">🎯 Cost-Effective Solutions</div>
+                                    <div class="pdf-diff-text">Alternative to high-cost OEM contracts while maintaining or exceeding quality standards and regulatory compliance. 20-40% savings.</div>
+                                </div>
+                                <div class="pdf-diff-card">
+                                    <div class="pdf-diff-title">📈 Small Business Agility</div>
+                                    <div class="pdf-diff-text">Flexible, responsive service delivery with personalized attention and rapid decision-making capabilities.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAGE 3: Performance & Contact -->
+                    <div class="pdf-page">
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Past Performance - Federal Contracts</div>
+                            <p class="pdf-text" style="margin-bottom: 0.1in;">TELEO Services maintains 4 active federal contracts across Defense Health Agency (DHA) and Veterans Affairs (VA) medical facilities.</p>
+
+                            <div class="pdf-perf-card">
+                                <div class="pdf-client-name">Navy Medical Center San Diego</div>
+                                <div class="pdf-client-type">Defense Health Agency (DHA)</div>
+                                <div class="pdf-services"><strong>Services:</strong> Surgical Laser Maintenance, PM/CM, Equipment Calibration • 24/7 On-Call Support • Emergency Services</div>
+                            </div>
+
+                            <div class="pdf-perf-card">
+                                <div class="pdf-client-name">Camp Lejeune Medical Center</div>
+                                <div class="pdf-client-type">Defense Health Agency (DHA)</div>
+                                <div class="pdf-services"><strong>Services:</strong> Surgical Laser Maintenance, PM/CM, Equipment Calibration • 24/7 On-Call Support • Emergency Services</div>
+                            </div>
+
+                            <div class="pdf-perf-card">
+                                <div class="pdf-client-name">West Los Angeles VA Medical Center</div>
+                                <div class="pdf-client-type">Veterans Affairs (VA)</div>
+                                <div class="pdf-services"><strong>Services:</strong> Surgical Laser Maintenance, PM/CM, Equipment Calibration • 24/7 On-Call Support • Emergency Services</div>
+                            </div>
+
+                            <div class="pdf-perf-card">
+                                <div class="pdf-client-name">VA Loma Linda Health Care</div>
+                                <div class="pdf-client-type">Veterans Affairs (VA)</div>
+                                <div class="pdf-services"><strong>Services:</strong> Anesthesia Equipment Maintenance, PM/CM, Equipment Calibration • 24/7 On-Call Support • Emergency Services</div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section">
+                            <div class="pdf-h2">Contact Information</div>
+                            <div class="pdf-grid-2">
+                                <div class="pdf-contact-box">
+                                    <div class="pdf-contact-title">📍 Mailing Address</div>
+                                    <div class="pdf-contact-info">822 W Riverside Ave #8707<br>Spokane, WA 99201-0580</div>
+                                </div>
+                                <div class="pdf-contact-box">
+                                    <div class="pdf-contact-title">📞 Phone</div>
+                                    <div class="pdf-contact-info">(206) 909-6311<br>24/7 Emergency Support Available</div>
+                                </div>
+                                <div class="pdf-contact-box">
+                                    <div class="pdf-contact-title">✉️ Email</div>
+                                    <div class="pdf-contact-info">Jason.Bass@teleoservicesllc.com<br>Response within 24 business hours</div>
+                                </div>
+                                <div class="pdf-contact-box">
+                                    <div class="pdf-contact-title">🌐 Website</div>
+                                    <div class="pdf-contact-info">www.teleoservicesllc.com<br>SAM.gov Active & Registered</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section" style="margin-bottom: 0.15in;">
+                            <div class="pdf-h2">Business Hours & Emergency Response</div>
+                            <div class="pdf-grid-2">
+                                <div>
+                                    <p class="pdf-text" style="margin-bottom: 0.04in;"><strong>Business Hours:</strong> Monday - Friday, 8:00 AM - 5:00 PM PST</p>
+                                    <p class="pdf-text" style="margin-bottom: 0;"><strong>Emergency Support:</strong> <span style="color: #dc2626; font-weight: 700;">24/7/365</span> - Call (206) 909-6311 anytime for urgent equipment failures requiring immediate response.</p>
+                                </div>
+                                <div>
+                                    <p class="pdf-text" style="margin-bottom: 0.04in;"><strong>Primary NAICS:</strong> 811210</p>
+                                    <p class="pdf-text" style="margin-bottom: 0;"><strong>SAM.gov Status:</strong> <span style="color: #10b981; font-weight: 700;">Active & Registered</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pdf-footer">
+                            <strong>TELEO Services, LLC</strong> | Excellence in Federal Healthcare Equipment Maintenance | © 2025 TELEO Services, LLC. All rights reserved.
+                        </div>
+                    </div>
+                </div>
             `;
         });
 
@@ -537,31 +678,11 @@
 
         // PDF download function
         function downloadPDF() {
-            // Store the currently active tab
-            const activeTab = document.querySelector('.tab-content.active');
-
-            // Show all tabs for printing
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.add('active');
-            });
-
-            // Change document title for PDF filename
             const originalTitle = document.title;
             document.title = 'TELEO_Capability_Statement';
-
-            // Print
             window.print();
-
-            // Restore original state after print dialog closes
             setTimeout(() => {
                 document.title = originalTitle;
-
-                // Hide all tabs except the originally active one
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    if (tab !== activeTab) {
-                        tab.classList.remove('active');
-                    }
-                });
             }, 100);
         }
     </script>
