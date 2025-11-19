@@ -90,12 +90,90 @@
                         .business-right { border: none; padding-left: 0; }
                     }
                     @media print {
-                        nav, .cta-button, footer { display: none !important; }
-                        .tab-content { display: block !important; page-break-after: always; }
-                        .tab-content:last-child { page-break-after: avoid; }
-                        .card { page-break-inside: avoid; margin-bottom: 0.5in; }
-                        h2, h3 { page-break-after: avoid; }
+                        /* Hide unnecessary elements */
+                        nav, .cta-button, .tagline, .header-badges, footer,
+                        .footer-content, .footer-bottom { display: none !important; }
+
+                        /* Page setup */
+                        @page { margin: 0.4in 0.5in; size: letter; }
+                        body { background: white; font-size: 9pt; line-height: 1.3; }
                         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+                        /* Header styling */
+                        header { margin: -0.4in -0.5in 0.25in -0.5in; padding: 0.5in 0.5in; }
+                        h1 { font-size: 20pt !important; margin-bottom: 0.05in; }
+
+                        /* Show all tabs */
+                        .tab-content { display: block !important; }
+
+                        /* Page 1: Overview + Credentials - No page break after */
+                        #overview { page-break-after: avoid; }
+                        #overview .card { margin-bottom: 0.15in; padding: 0.12in; }
+                        #overview h2 { font-size: 12pt; margin-bottom: 0.08in; border-bottom: 2px solid #2563eb; padding-bottom: 0.03in; }
+                        #overview h3 { font-size: 10pt; margin: 0.1in 0 0.06in 0; }
+                        #overview h4 { font-size: 9pt; margin-bottom: 0.05in; }
+                        #overview p { font-size: 8pt; margin-bottom: 0.06in; line-height: 1.25; }
+                        #overview .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 0.08in; margin: 0.1in 0; }
+                        #overview .stat-card { padding: 0.08in; }
+                        #overview .stat-number { font-size: 14pt; }
+                        #overview .stat-label { font-size: 6pt; }
+                        #overview .cert-grid { grid-template-columns: repeat(3, 1fr); gap: 0.06in; margin-top: 0.08in; }
+                        #overview .cert-item { padding: 0.06in; }
+                        #overview .cert-name { font-size: 6.5pt; }
+                        #overview .cert-status { font-size: 6pt; }
+                        #overview .tags { gap: 0.04in; margin-top: 0.06in; }
+                        #overview .tag { padding: 0.02in 0.06in; font-size: 5.5pt; }
+
+                        /* Page 2: Capabilities, NAICS, Differentiators */
+                        #capabilities, #naics, #differentiators { page-break-after: avoid; page-break-before: avoid; }
+                        #capabilities { page-break-before: always; }
+                        #capabilities .card, #naics .card, #differentiators .card {
+                            margin-bottom: 0.12in; padding: 0.1in;
+                        }
+                        #capabilities h2, #naics h2, #differentiators h2 {
+                            font-size: 12pt; margin-bottom: 0.08in;
+                            border-bottom: 2px solid #2563eb; padding-bottom: 0.03in;
+                        }
+                        #capabilities h3 { font-size: 9pt; margin: 0.08in 0 0.04in 0; }
+                        #capabilities p, #naics p, #differentiators p {
+                            font-size: 7.5pt; margin-bottom: 0.04in; line-height: 1.2;
+                        }
+                        #differentiators .diff-grid { grid-template-columns: repeat(2, 1fr); gap: 0.08in; }
+                        #differentiators .diff-card { padding: 0.08in; }
+                        #differentiators .diff-title { font-size: 8.5pt; margin-bottom: 0.03in; }
+
+                        /* Page 3: Performance + Contact */
+                        #performance { page-break-before: always; }
+                        #performance .card, #contact .card { margin-bottom: 0.12in; padding: 0.1in; }
+                        #performance h2, #contact h2 {
+                            font-size: 12pt; margin-bottom: 0.08in;
+                            border-bottom: 2px solid #2563eb; padding-bottom: 0.03in;
+                        }
+                        #performance p { font-size: 7.5pt; margin-bottom: 0.08in; line-height: 1.2; }
+                        #performance .performance-card {
+                            padding: 0.08in; margin-bottom: 0.06in;
+                            page-break-inside: avoid;
+                        }
+                        #performance .client-name { font-size: 9pt; }
+                        #performance .client-type { font-size: 6pt; padding: 0.02in 0.06in; }
+                        #performance .outcomes-grid {
+                            grid-template-columns: repeat(3, 1fr); gap: 0.04in; margin-top: 0.05in;
+                        }
+                        #performance .outcome-item { padding: 0.04in; font-size: 6pt; }
+
+                        #contact { page-break-after: avoid; }
+                        #contact .contact-grid { grid-template-columns: repeat(2, 1fr); gap: 0.1in; }
+                        #contact .contact-box { padding: 0.08in; height: auto; }
+                        #contact .contact-title { font-size: 8pt; margin-bottom: 0.04in; }
+                        #contact .contact-info { font-size: 7pt; }
+                        #contact .contact-note { font-size: 6pt; }
+                        #contact .business-section { padding: 0.1in; margin-top: 0.1in; }
+                        #contact .business-grid { grid-template-columns: 1fr 1fr; gap: 0.1in; }
+                        #contact h3 { font-size: 9pt; margin-bottom: 0.06in; }
+
+                        /* General tweaks */
+                        .card { page-break-inside: avoid; }
+                        h2, h3, h4 { page-break-after: avoid; }
                     }
                 </style>
 
