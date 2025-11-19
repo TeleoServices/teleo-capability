@@ -707,8 +707,15 @@
             document.getElementById('pdfOverlay').classList.add('active');
             document.getElementById('pdfGenerating').classList.add('active');
 
-            // Use the PDF-specific template
+            // Get the PDF template
             const element = document.getElementById('pdf-template');
+
+            // Temporarily make it visible for rendering
+            element.style.position = 'fixed';
+            element.style.left = '0';
+            element.style.top = '0';
+            element.style.zIndex = '-1';
+            element.style.opacity = '0';
 
             // PDF options optimized for 3 pages
             const opt = {
@@ -728,17 +735,34 @@
                 pagebreak: { mode: ['css', 'legacy'] }
             };
 
-            // Generate PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Hide loading overlay
-                document.getElementById('pdfOverlay').classList.remove('active');
-                document.getElementById('pdfGenerating').classList.remove('active');
-            }).catch((error) => {
-                console.error('PDF generation error:', error);
-                alert('There was an error generating the PDF. Please try again.');
-                document.getElementById('pdfOverlay').classList.remove('active');
-                document.getElementById('pdfGenerating').classList.remove('active');
-            });
+            // Generate PDF with slight delay to ensure rendering
+            setTimeout(() => {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Hide the template again
+                    element.style.position = 'absolute';
+                    element.style.left = '-9999px';
+                    element.style.top = '0';
+                    element.style.zIndex = '';
+                    element.style.opacity = '';
+
+                    // Hide loading overlay
+                    document.getElementById('pdfOverlay').classList.remove('active');
+                    document.getElementById('pdfGenerating').classList.remove('active');
+                }).catch((error) => {
+                    console.error('PDF generation error:', error);
+                    alert('There was an error generating the PDF. Please try again.');
+
+                    // Hide the template again
+                    element.style.position = 'absolute';
+                    element.style.left = '-9999px';
+                    element.style.top = '0';
+                    element.style.zIndex = '';
+                    element.style.opacity = '';
+
+                    document.getElementById('pdfOverlay').classList.remove('active');
+                    document.getElementById('pdfGenerating').classList.remove('active');
+                });
+            }, 100);
         }
     </script>
 </body>
