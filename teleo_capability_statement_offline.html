@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TELEO Services - Federal Capability Statement</title>
     <meta name="description" content="TELEO Services LLC - Federal medical equipment maintenance contractor serving DHA and VA healthcare facilities">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div id="app"></div>
@@ -89,6 +90,38 @@
                         .header-content { flex-direction: column; }
                         .business-right { border: none; padding-left: 0; }
                     }
+                    @media print {
+                        nav { display: none; }
+                        .cta-button { display: none; }
+                    }
+                    .pdf-generating {
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: white;
+                        padding: 2rem 3rem;
+                        border-radius: 0.75rem;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        z-index: 10000;
+                        display: none;
+                    }
+                    .pdf-generating.active {
+                        display: block;
+                    }
+                    .pdf-overlay {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: rgba(0,0,0,0.5);
+                        z-index: 9999;
+                        display: none;
+                    }
+                    .pdf-overlay.active {
+                        display: block;
+                    }
                 </style>
 
                 <header>
@@ -102,7 +135,10 @@
                                     <span class="sam-active">✓ SAM.gov Active</span>
                                 </div>
                             </div>
-                            <a href="tel:+12069096311" class="cta-button">📞 Call Now: (206) 909-6311</a>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <button onclick="downloadPDF()" class="cta-button" style="cursor: pointer; border: none;">📄 Download PDF</button>
+                                <a href="tel:+12069096311" class="cta-button">📞 Call Now: (206) 909-6311</a>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -421,6 +457,12 @@
                         </div>
                     </div>
                 </footer>
+
+                <div class="pdf-overlay" id="pdfOverlay"></div>
+                <div class="pdf-generating" id="pdfGenerating">
+                    <h3 style="color: #1e3a8a; margin-bottom: 1rem;">Generating PDF...</h3>
+                    <p style="color: #6b7280;">Please wait while we prepare your capability statement.</p>
+                </div>
             `;
         });
 
@@ -430,20 +472,82 @@
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Remove active class from all nav tabs
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Show selected tab content
             document.getElementById(tabId).classList.add('active');
-            
+
             // Add active class to clicked nav tab
             event.target.classList.add('active');
-            
+
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // PDF download function
+        function downloadPDF() {
+            // Show loading overlay
+            document.getElementById('pdfOverlay').classList.add('active');
+            document.getElementById('pdfGenerating').classList.add('active');
+
+            // Store current active tab
+            const activeTab = document.querySelector('.tab-content.active');
+
+            // Temporarily show all tabs for PDF generation
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'block';
+            });
+
+            // Clone the app content for PDF generation
+            const element = document.getElementById('app');
+
+            // PDF options
+            const opt = {
+                margin: [0.5, 0.5, 0.5, 0.5],
+                filename: 'TELEO_Capability_Statement.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'letter',
+                    orientation: 'portrait'
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Hide loading overlay
+                document.getElementById('pdfOverlay').classList.remove('active');
+                document.getElementById('pdfGenerating').classList.remove('active');
+
+                // Restore tab visibility
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    if (tab !== activeTab) {
+                        tab.style.display = 'none';
+                    }
+                });
+            }).catch((error) => {
+                console.error('PDF generation error:', error);
+                alert('There was an error generating the PDF. Please try again.');
+                document.getElementById('pdfOverlay').classList.remove('active');
+                document.getElementById('pdfGenerating').classList.remove('active');
+
+                // Restore tab visibility
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    if (tab !== activeTab) {
+                        tab.style.display = 'none';
+                    }
+                });
+            });
         }
     </script>
 </body>
